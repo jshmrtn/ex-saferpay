@@ -24,8 +24,23 @@ defmodule ExSaferpay.ResponseNormalizer do
         nil
     end
   end
+  def transform(input, Date) do
+    case Date.from_iso8601(input) do
+      {:ok, date, _} -> date
+      {:error, error} ->
+        Logger.warn("Invalid Date value #{inspect input}. Error: #{inspect error}")
+        nil
+    end
+  end
+  def transform(%{"CurrencyCode" => currency, "Value" => value}, Money) do
+    Money.new(String.to_integer(value) / 100, currency)
+  end
+  def transform(input, Money) do
+    Logger.warn("Invalid Money value #{inspect input}.")
+    nil
+  end
   def transform(input, URI), do: URI.parse(input)
-  def transform(input, :atom), do: String.to_atom(input)
+  def transform(input, :atom), do: String.to_atom(Macro.underscore(input))
   def transform(input, _), do: input
 
   defp value(input = %{}, key) when is_atom(key) do

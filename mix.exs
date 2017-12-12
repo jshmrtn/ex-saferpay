@@ -39,6 +39,7 @@ defmodule ExSaferpay.Mixfile do
       {:money, "~> 1.2.1"},
       {:mock, "~> 0.2.0", only: :test},
       {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:inch_ex, only: :docs, runtime: false},
       {:excoveralls, "~> 0.4", only: [:dev, :test], runtime: false},
       {:credo, "~> 0.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 0.4", only: [:dev, :test], runtime: false},

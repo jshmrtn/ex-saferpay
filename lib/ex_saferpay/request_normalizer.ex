@@ -13,6 +13,10 @@ defmodule ExSaferpay.RequestNormalizer do
   defp normalize_values(map) do
     Enum.map(map, fn
       {key, %Money{amount: amount, currency: currency}} ->
+        amount = amount
+        |> Decimal.mult(Decimal.new(100))
+        |> Decimal.to_integer
+
         {key, %{
           Value: amount,
           CurrencyCode: currency,

@@ -12,6 +12,7 @@ defmodule ExSaferpay do
   use HTTPoison.Base
   alias HTTPoison.Response
   alias ExSaferpay.ResponseNormalizer
+  alias ExSaferpay.Response.ErrorResponse
 
   @saferpay_baseurls %{
     test: "https://test.saferpay.com/api",
@@ -153,7 +154,7 @@ defmodule ExSaferpay do
     end
   end
 
-  def decode_response(%Response{body: body} = response, nil) do
+  def parse_response(%Response{body: body} = response) do
     if is_json_response(response) do
       case Poison.decode(body) do
         {:ok, decoded} ->
@@ -162,16 +163,18 @@ defmodule ExSaferpay do
           {:error, error}
       end
     else
-      response
+      {:ok, response}
     end
   end
-  def decode_response(response, as) do
-    case decode_response(response, nil) do
-      {:ok, %Response{body: body, status_code: 200} = response} ->
-        {:ok, %{response | body: ResponseNormalizer.transform(body, as)}}
-      other ->
-        other
-    end
+
+  def decode_response(%Response{status_code: 200} = response, nil) do
+    {:ok, response}
+  end
+  def decode_response(%Response{status_code: 200, body: body}, as) do
+    {:ok, ResponseNormalizer.transform(body, as)}
+  end
+  def decode_response(%Response{status_code: status_code, body: body}, _) do
+    {:error, {status_code, ResponseNormalizer.transform(body, ErrorResponse.empty)}}
   end
 
   defp is_json_response(%Response{headers: headers}) do
@@ -181,6 +184,23 @@ defmodule ExSaferpay do
       _ ->
         false
     end)
+  end
+
+  def saferpay_request(url, out, request_body) do
+    url
+    |> post(request_body)
+    |> ExSaferpay.save_mock
+    |> case do
+      {:ok, response} ->
+        case ExSaferpay.parse_response(response) do
+          {:ok, parsed_response} ->
+            ExSaferpay.decode_response(parsed_response, out)
+          {:error, error} ->
+            {:error, error}
+        end
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   case Mix.env do
@@ -220,14 +240,7 @@ defmodule ExSaferpay do
         def unquote(name)(unquote_splicing(args)) do
           unquote(opts)
           |> Keyword.fetch!(:url)
-          |> ExSaferpay.post(unquote_splicing(args))
-          |> ExSaferpay.save_mock
-          |> case do
-            {:ok, response} ->
-              ExSaferpay.decode_response(response, @out)
-            {:error, error} ->
-              {:error, error}
-          end
+          |> ExSaferpay.saferpay_request(@out, unquote_splicing(args))
         end
       end
     end

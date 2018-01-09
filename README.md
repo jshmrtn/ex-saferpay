@@ -10,7 +10,7 @@ Elixir wrapper for Saferpay JSON API.
 
 **This library is in development and not yet ready!**
 
-<!-- ## Installation
+## Installation
 
 The package can be installed by adding `ex_saferpay` to your list of dependencies in `mix.exs`:
 
@@ -22,7 +22,7 @@ def deps do
 end
 ```
 
-The docs can be found at [https://hexdocs.pm/ex_saferpay](https://hexdocs.pm/ex_saferpay). -->
+The docs can be found at [https://hexdocs.pm/ex_saferpay](https://hexdocs.pm/ex_saferpay).
 
 ## Configuration
 

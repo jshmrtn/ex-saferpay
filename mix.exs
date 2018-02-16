@@ -77,7 +77,7 @@ defmodule ExSaferpay.Mixfile do
       {:httpoison, "~> 0.13"},
       {:poison, "~> 3.1"},
       {:uuid, "~> 1.1"},
-      {:ex_money, "~> 1.1"},
+      {:ex_money, "~> 2.2"},
       {:mock, "~> 0.2.0", only: :test},
       {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:inch_ex, only: :docs, runtime: false},

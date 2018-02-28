@@ -17,7 +17,7 @@ The package can be installed by adding `ex_saferpay` to your list of dependencie
 ```elixir
 def deps do
   [
-    {:ex_saferpay, "~> 0.1"}
+    {:ex_saferpay, "~> 0.2"}
   ]
 end
 ```

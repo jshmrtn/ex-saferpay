@@ -28,6 +28,15 @@ defmodule ExSaferpay.Transaction do
     out: :authorize_direct_response
 
   @doc """
+  See http://saferpay.github.io/jsonapi/#Payment_v1_Transaction_AuthorizeReferenced
+  """
+  @authorize_referenced_response Response.TransactionAuthorizeReferenced.empty
+  ExSaferpay.defrequest authorize_referenced(transaction_authorize_referenced),
+    url: "/Payment/v1/Transaction/AuthorizeReferenced",
+    in: Request.TransactionAuthorizeReferenced,
+    out: :authorize_referenced_response
+
+  @doc """
   See http://saferpay.github.io/jsonapi/#Payment_v1_Transaction_Capture
   """
   @capture_response Response.TransactionCapture.empty

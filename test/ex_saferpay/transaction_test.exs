@@ -98,6 +98,52 @@ defmodule ExSaferpay.TransactionTest do
     end
   end
 
+  describe "authorize_referenced/1" do
+    setup do
+      response_mocks = ResponseMockCase.get_mocks(%{
+        {:post, "/Payment/v1/Transaction/AuthorizeDirect"} => "NjGYoTGF5XUvmU4q9QQ1KQ",
+      })
+      with_response_mocks response_mocks do
+        request = Request.TransactionAuthorizeDirect.generate(%{
+          payment: %Request.Payment{
+            amount: Money.new(500, :USD),
+            recurring: %Request.Recurring{
+              initial: true
+            }
+          },
+          payment_means: %Request.PaymentMeans{
+            alias: %Request.Alias{
+              id: "7d3eef510ef7c5f2e6311a402ef85b20",
+              verification_code: "123",
+            },
+          },
+        })
+
+        {:ok, %Response.TransactionAuthorizeDirect{} = authorization} = Transaction.authorize_direct(request)
+
+        {:ok, %{initial_authorization: authorization}}
+      end
+    end
+
+    @tag response_mocks: %{
+      {:post, "/Payment/v1/Transaction/AuthorizeReferenced"} => "us6Ftw0UzLwTvBKLCbFBqg",
+    }
+    test "works ", %{response_mocks: response_mocks, initial_authorization: initial_authorization} do
+      with_response_mocks response_mocks do
+        request = Request.TransactionAuthorizeReferenced.generate(%{
+          payment: %Request.Payment{
+            amount: Money.new(500, :USD),
+          },
+          transaction_reference: %Request.TransactionReference{
+            transaction_id: initial_authorization.transaction.id
+          }
+        })
+
+        assert {:ok, %Response.TransactionAuthorizeReferenced{}} = Transaction.authorize_referenced(request)
+      end
+    end
+  end
+
   describe "capture/1" do
     setup do
       response_mocks = ResponseMockCase.get_mocks(%{

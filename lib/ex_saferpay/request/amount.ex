@@ -3,5 +3,5 @@ defmodule ExSaferpay.Request.Amount do
   See `Money`
   """
 
-  @type t :: Money.t
+  @type t :: Money.t()
 end

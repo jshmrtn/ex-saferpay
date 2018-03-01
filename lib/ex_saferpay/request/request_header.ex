@@ -6,17 +6,17 @@ defmodule ExSaferpay.Request.RequestHeader do
   use ExSaferpay.RequestNormalizer
 
   @type t :: %__MODULE__{
-    spec_version: String.t,
-    customer_id: non_neg_integer,
-    request_id: binary,
-    retry_indicator: non_neg_integer,
-  }
+          spec_version: String.t(),
+          customer_id: non_neg_integer,
+          request_id: binary,
+          retry_indicator: non_neg_integer
+        }
 
   @enforce_keys [
     :spec_version,
     :customer_id,
     :request_id,
-    :retry_indicator,
+    :retry_indicator
   ]
   defstruct @enforce_keys
 
@@ -25,7 +25,7 @@ defmodule ExSaferpay.Request.RequestHeader do
       spec_version: ExSaferpay.spec_version(),
       customer_id: Application.fetch_env!(:ex_saferpay, :customer_id),
       request_id: UUID.uuid4(),
-      retry_indicator: retry_indicator,
+      retry_indicator: retry_indicator
     }
   end
 end

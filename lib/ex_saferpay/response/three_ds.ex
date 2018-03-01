@@ -4,17 +4,17 @@ defmodule ExSaferpay.Response.ThreeDs do
   """
 
   @type t :: %__MODULE__{
-    authenticated: boolean,
-    liability_shift: boolean,
-    xid: String.t,
-    verification_value: nil | String.t,
-  }
+          authenticated: boolean,
+          liability_shift: boolean,
+          xid: String.t(),
+          verification_value: nil | String.t()
+        }
 
   defstruct [
     :authenticated,
     :liability_shift,
     :xid,
-    :verification_value,
+    :verification_value
   ]
 
   def empty do

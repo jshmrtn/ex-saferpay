@@ -6,24 +6,24 @@ defmodule ExSaferpay.Response.AliasInsert do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    response_header: Response.ResponseHeader.t,
-    token: String.t,
-    expiration: String.t,
-    redirect_url: String.t,
-  }
+          response_header: Response.ResponseHeader.t(),
+          token: String.t(),
+          expiration: String.t(),
+          redirect_url: String.t()
+        }
 
   defstruct [
     :response_header,
     :token,
     :expiration,
-    :redirect_url,
+    :redirect_url
   ]
 
   def empty do
     %__MODULE__{
       response_header: Response.ResponseHeader.empty(),
       expiration: DateTime,
-      redirect_url: URI,
+      redirect_url: URI
     }
   end
 end

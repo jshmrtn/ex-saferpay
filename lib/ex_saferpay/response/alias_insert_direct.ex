@@ -6,17 +6,17 @@ defmodule ExSaferpay.Response.AliasInsertDirect do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    response_header: Response.ResponseHeader.t,
-    alias: Response.Alias.t,
-    payment_means: Response.PaymentMeans.t,
-    check_result: nil | Response.CheckResult.t,
-  }
+          response_header: Response.ResponseHeader.t(),
+          alias: Response.Alias.t(),
+          payment_means: Response.PaymentMeans.t(),
+          check_result: nil | Response.CheckResult.t()
+        }
 
   defstruct [
     :response_header,
     :alias,
     :payment_means,
-    :check_result,
+    :check_result
   ]
 
   def empty do
@@ -24,7 +24,7 @@ defmodule ExSaferpay.Response.AliasInsertDirect do
       response_header: Response.ResponseHeader.empty(),
       alias: Response.Alias.empty(),
       payment_means: Response.PaymentMeans.empty(),
-      check_result: Response.CheckResult.empty(),
+      check_result: Response.CheckResult.empty()
     }
   end
 end

@@ -16,7 +16,7 @@ defmodule ExSaferpay do
 
   @saferpay_baseurls %{
     test: "https://test.saferpay.com/api",
-    prod: "https://www.saferpay.com/api",
+    prod: "https://www.saferpay.com/api"
   }
   @spec_version "1.8"
 
@@ -25,8 +25,9 @@ defmodule ExSaferpay do
   def process_url("/" <> url) do
     process_url(url)
   end
+
   def process_url(url)
-  when is_binary(url) do
+      when is_binary(url) do
     @saferpay_baseurls
     |> Map.fetch!(Application.get_env(:ex_saferpay, :environment, :test))
     |> Kernel.<>("/")
@@ -34,33 +35,37 @@ defmodule ExSaferpay do
   end
 
   def process_request_body(body)
-  when is_binary(body) do
+      when is_binary(body) do
     body
   end
+
   def process_request_body(%{} = body) do
     body
     |> Poison.encode!()
   end
 
   def process_request_headers(headers)
-  when is_list(headers) do
-    headers = headers
-    |> put_new_header("accept", "application/json")
-    |> put_new_header("content-type", "application/json; charset=utf-8")
+      when is_list(headers) do
+    headers =
+      headers
+      |> put_new_header("accept", "application/json")
+      |> put_new_header("content-type", "application/json; charset=utf-8")
 
     case Application.get_env(:ex_saferpay, :authentication_method, :credentials) do
       :credentials ->
         add_auth_header(headers)
+
       :client_ssl ->
         headers
     end
   end
 
   def process_request_options(options)
-  when is_list(options) do
+      when is_list(options) do
     case Application.get_env(:ex_saferpay, :authentication_method, :credentials) do
       :credentials ->
         options
+
       :client_ssl ->
         client_ssl_options(options)
     end
@@ -79,17 +84,18 @@ defmodule ExSaferpay do
 
   defp get_cert_der do
     {cert_type, cert_entry} =
-    :ex_saferpay
-    |> Application.fetch_env!(:client_certificate)
-    |> get_cert_der
-    |> decode_pem_bin()
-    |> decode_pem_entry()
-    |> split_type_and_entry()
+      :ex_saferpay
+      |> Application.fetch_env!(:client_certificate)
+      |> get_cert_der
+      |> decode_pem_bin()
+      |> decode_pem_entry()
+      |> split_type_and_entry()
 
     encode_der(cert_type, cert_entry)
   end
+
   defp get_cert_der({:file, path})
-  when is_binary(path) do
+       when is_binary(path) do
     File.read!(path)
   end
 
@@ -104,13 +110,14 @@ defmodule ExSaferpay do
 
     {key_type, encode_der(key_type, key_entry)}
   end
+
   defp get_key_der({:file, path})
-  when is_binary(path) do
+       when is_binary(path) do
     File.read!(path)
   end
 
   defp decode_pem_bin(pem_bin)
-  when is_binary(pem_bin) do
+       when is_binary(pem_bin) do
     pem_bin |> :public_key.pem_decode() |> hd()
   end
 
@@ -128,8 +135,7 @@ defmodule ExSaferpay do
   end
 
   defp header_exists?(headers, needle)
-  when is_list(headers) and is_binary(needle)
-  do
+       when is_list(headers) and is_binary(needle) do
     Enum.find(headers, fn
       {^needle, _} -> true
       _ -> false
@@ -146,10 +152,9 @@ defmodule ExSaferpay do
 
   defp add_auth_header(headers) do
     with username = Application.fetch_env!(:ex_saferpay, :username),
-      password = Application.fetch_env!(:ex_saferpay, :password),
-      token = Base.encode64(username <> ":" <> password),
-      value = "Basic " <> token
-    do
+         password = Application.fetch_env!(:ex_saferpay, :password),
+         token = Base.encode64(username <> ":" <> password),
+         value = "Basic " <> token do
       put_new_header(headers, "authorization", value)
     end
   end
@@ -159,6 +164,7 @@ defmodule ExSaferpay do
       case Poison.decode(body) do
         {:ok, decoded} ->
           {:ok, %{response | body: decoded}}
+
         {:error, error} ->
           {:error, error}
       end
@@ -170,17 +176,20 @@ defmodule ExSaferpay do
   def decode_response(%Response{status_code: 200} = response, nil) do
     {:ok, response}
   end
+
   def decode_response(%Response{status_code: 200, body: body}, as) do
     {:ok, ResponseNormalizer.transform(body, as)}
   end
+
   def decode_response(%Response{status_code: status_code, body: body}, _) do
-    {:error, {status_code, ResponseNormalizer.transform(body, ErrorResponse.empty)}}
+    {:error, {status_code, ResponseNormalizer.transform(body, ErrorResponse.empty())}}
   end
 
   defp is_json_response(%Response{headers: headers}) do
     Enum.any?(headers, fn
       {"Content-Type", content} ->
         content =~ "application/json"
+
       _ ->
         false
     end)
@@ -189,21 +198,23 @@ defmodule ExSaferpay do
   def saferpay_request(url, out, request_body) do
     url
     |> post(request_body)
-    |> ExSaferpay.save_mock
+    |> ExSaferpay.save_mock()
     |> case do
       {:ok, response} ->
         case ExSaferpay.parse_response(response) do
           {:ok, parsed_response} ->
             ExSaferpay.decode_response(parsed_response, out)
+
           {:error, error} ->
             {:error, error}
         end
+
       {:error, error} ->
         {:error, error}
     end
   end
 
-  case Mix.env do
+  case Mix.env() do
     :test ->
       def save_mock(request) do
         if Process.get(:mock_server, false) do
@@ -212,6 +223,7 @@ defmodule ExSaferpay do
           request
         end
       end
+
     _ ->
       def save_mock(request), do: request
   end

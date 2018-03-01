@@ -67,7 +67,8 @@ defmodule ExSaferpayTest do
     end
 
     test "does create auth header in credentials mode" do
-      assert [{"authorization", "Basic dGVzdDp0ZXN0"} | _] = ExSaferpay.process_request_headers([])
+      assert [{"authorization", "Basic dGVzdDp0ZXN0"} | _] =
+               ExSaferpay.process_request_headers([])
     end
   end
 

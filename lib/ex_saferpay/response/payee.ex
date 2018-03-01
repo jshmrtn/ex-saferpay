@@ -4,17 +4,17 @@ defmodule ExSaferpay.Response.Payee do
   """
 
   @type t :: %__MODULE__{
-    iban: String.t,
-    holder_name: nil | String.t,
-    bic: nil | String.t,
-    bank_name: nil | String.t,
-  }
+          iban: String.t(),
+          holder_name: nil | String.t(),
+          bic: nil | String.t(),
+          bank_name: nil | String.t()
+        }
 
   defstruct [
     :iban,
     :holder_name,
     :bic,
-    :bank_name,
+    :bank_name
   ]
 
   def empty do

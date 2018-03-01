@@ -6,11 +6,11 @@ defmodule ExSaferpay.Request.Recurring do
   use ExSaferpay.RequestNormalizer
 
   @type t :: %__MODULE__{
-    initial: boolean,
-  }
+          initial: boolean
+        }
 
   @enforce_keys [
-    :initial,
+    :initial
   ]
   defstruct @enforce_keys
 end

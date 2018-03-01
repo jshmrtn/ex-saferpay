@@ -6,14 +6,14 @@ defmodule ExSaferpay.Response.TransactionAuthorize do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    response_header: Response.ResponseHeader.t,
-    transaction: Response.Transaction.t,
-    payment_means: Response.PaymentMeans.t,
-    payer: nil | Response.Payer.t,
-    registration_result: nil | Response.RegistrationResult.t,
-    three_ds: nil | Response.ThreeDs.t,
-    dcc: nil | Response.Dcc.t,
-  }
+          response_header: Response.ResponseHeader.t(),
+          transaction: Response.Transaction.t(),
+          payment_means: Response.PaymentMeans.t(),
+          payer: nil | Response.Payer.t(),
+          registration_result: nil | Response.RegistrationResult.t(),
+          three_ds: nil | Response.ThreeDs.t(),
+          dcc: nil | Response.Dcc.t()
+        }
 
   defstruct [
     :response_header,
@@ -22,7 +22,7 @@ defmodule ExSaferpay.Response.TransactionAuthorize do
     :payer,
     :registration_result,
     :three_ds,
-    :dcc,
+    :dcc
   ]
 
   def empty do
@@ -33,7 +33,7 @@ defmodule ExSaferpay.Response.TransactionAuthorize do
       payer: Response.Payer.empty(),
       registration_result: Response.RegistrationResult.empty(),
       three_ds: Response.ThreeDs.empty(),
-      dcc: Response.Dcc.empty(),
+      dcc: Response.Dcc.empty()
     }
   end
 end

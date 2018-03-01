@@ -4,13 +4,13 @@ defmodule ExSaferpay.Response.ResponseHeader do
   """
 
   @type t :: %__MODULE__{
-    spec_version: String.t,
-    request_id: binary,
-  }
+          spec_version: String.t(),
+          request_id: binary
+        }
 
   defstruct [
     :spec_version,
-    :request_id,
+    :request_id
   ]
 
   def empty do

@@ -6,19 +6,19 @@ defmodule ExSaferpay.Response.TransactionAuthorizeDirect do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    response_header: Response.ResponseHeader.t,
-    transaction: Response.Transaction.t,
-    payment_means: Response.PaymentMeans.t,
-    payer: nil | Response.Payer.t,
-    registration_result: nil | Response.RegistrationResult.t,
-  }
+          response_header: Response.ResponseHeader.t(),
+          transaction: Response.Transaction.t(),
+          payment_means: Response.PaymentMeans.t(),
+          payer: nil | Response.Payer.t(),
+          registration_result: nil | Response.RegistrationResult.t()
+        }
 
   defstruct [
     :response_header,
     :transaction,
     :payment_means,
     :payer,
-    :registration_result,
+    :registration_result
   ]
 
   def empty do
@@ -27,7 +27,7 @@ defmodule ExSaferpay.Response.TransactionAuthorizeDirect do
       transaction: Response.Transaction.empty(),
       payment_means: Response.PaymentMeans.empty(),
       payer: Response.Payer.empty(),
-      registration_result: Response.RegistrationResult.empty(),
+      registration_result: Response.RegistrationResult.empty()
     }
   end
 end

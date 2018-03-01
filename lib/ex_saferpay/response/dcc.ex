@@ -4,16 +4,16 @@ defmodule ExSaferpay.Response.Dcc do
   """
 
   @type t :: %__MODULE__{
-    payer_amount: Money.t,
-  }
+          payer_amount: Money.t()
+        }
 
   defstruct [
-    :payer_amount,
+    :payer_amount
   ]
 
   def empty do
     %__MODULE__{
-      payer_amount: Money,
+      payer_amount: Money
     }
   end
 end

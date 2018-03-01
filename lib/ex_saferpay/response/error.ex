@@ -4,13 +4,13 @@ defmodule ExSaferpay.Response.Error do
   """
 
   @type t :: %__MODULE__{
-    error_name: nil | String.t,
-    error_message: nil | String.t,
-  }
+          error_name: nil | String.t(),
+          error_message: nil | String.t()
+        }
 
   defstruct [
     :error_name,
-    :error_message,
+    :error_message
   ]
 
   def empty do

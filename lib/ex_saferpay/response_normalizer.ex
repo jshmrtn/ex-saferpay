@@ -33,7 +33,7 @@ defmodule ExSaferpay.ResponseNormalizer do
 
   def transform(input, Date) do
     case Date.from_iso8601(input) do
-      {:ok, date, _} ->
+      {:ok, date} ->
         date
 
       {:error, error} ->
@@ -43,7 +43,7 @@ defmodule ExSaferpay.ResponseNormalizer do
   end
 
   def transform(%{"CurrencyCode" => currency, "Value" => value}, Money) do
-    Money.new(String.to_integer(value) / 100, currency)
+    Money.from_float!(currency, String.to_integer(value) / 100)
   end
 
   def transform(input, Money) do

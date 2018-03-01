@@ -2,8 +2,8 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jshmrtn/ex-saferpay/master/LICENSE)
 [![Build Status](https://travis-ci.org/jshmrtn/ex-saferpay.svg?branch=master)](https://travis-ci.org/jshmrtn/ex-saferpay)
-[![Hex.pm Version](https://img.shields.io/hexpm/v/ex_openssl.svg?style=flat)](https://hex.pm/packages/ex_saferpay)
-[![InchCI](https://inch-ci.org/github/jshmrtn/ex-openssl.svg?branch=master)](https://inch-ci.org/github/jshmrtn/ex-saferpay)
+[![Hex.pm Version](https://img.shields.io/hexpm/v/ex_saferpay.svg?style=flat)](https://hex.pm/packages/ex_saferpay)
+[![InchCI](https://inch-ci.org/github/jshmrtn/ex-saferpay.svg?branch=master)](https://inch-ci.org/github/jshmrtn/ex-saferpay)
 [![Coverage Status](https://coveralls.io/repos/github/jshmrtn/ex-saferpay/badge.svg?branch=master)](https://coveralls.io/github/jshmrtn/ex-saferpay?branch=master)
 
 Elixir wrapper for Saferpay JSON API.

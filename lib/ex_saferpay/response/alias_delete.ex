@@ -6,16 +6,16 @@ defmodule ExSaferpay.Response.AliasDelete do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    response_header: Response.ResponseHeader.t,
-  }
+          response_header: Response.ResponseHeader.t()
+        }
 
   defstruct [
-    :response_header,
+    :response_header
   ]
 
   def empty do
     %__MODULE__{
-      response_header: Response.ResponseHeader.empty(),
+      response_header: Response.ResponseHeader.empty()
     }
   end
 end

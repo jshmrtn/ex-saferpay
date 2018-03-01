@@ -28,27 +28,28 @@ defmodule ExSaferpay.Request do
   * ja - Japanese
   * zh - Chinese
   """
-  @type language :: :de |
-    :en |
-    :fr |
-    :da |
-    :cs |
-    :es |
-    :hr |
-    :it |
-    :hu |
-    :nl |
-    :no |
-    :pl |
-    :pt |
-    :ru |
-    :ro |
-    :sk |
-    :sl |
-    :fi |
-    :sv |
-    :tr |
-    :el |
-    :ja |
-    :zh
+  @type language ::
+          :de
+          | :en
+          | :fr
+          | :da
+          | :cs
+          | :es
+          | :hr
+          | :it
+          | :hu
+          | :nl
+          | :no
+          | :pl
+          | :pt
+          | :ru
+          | :ro
+          | :sk
+          | :sl
+          | :fi
+          | :sv
+          | :tr
+          | :el
+          | :ja
+          | :zh
 end

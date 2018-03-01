@@ -7,15 +7,16 @@ defmodule ExSaferpay.Request.PaymentMeans do
   alias ExSaferpay.Request
 
   @type t :: %__MODULE__{
-    card: nil | Request.Card.t,
-    bank_account: nil | Request.BankAccount.t,
-    alias: nil | Request.Alias.t,
-  }
+          card: nil | Request.Card.t(),
+          bank_account: nil | Request.BankAccount.t(),
+          alias: nil | Request.Alias.t()
+        }
 
   @enforce_keys []
-  defstruct @enforce_keys ++ [
-    :card,
-    :bank_account,
-    :alias,
-  ]
+  defstruct @enforce_keys ++
+              [
+                :card,
+                :bank_account,
+                :alias
+              ]
 end

@@ -5,18 +5,20 @@ defmodule ExSaferpay.Request.Styling do
 
   use ExSaferpay.RequestNormalizer
 
-  @type theme :: :default |
-    :six |
-    :none
+  @type theme ::
+          :default
+          | :six
+          | :none
 
   @type t :: %__MODULE__{
-    css_url: nil | URI.t,
-    theme: nil | theme,
-  }
+          css_url: nil | URI.t(),
+          theme: nil | theme
+        }
 
   @enforce_keys []
-  defstruct @enforce_keys ++ [
-    :css_url,
-    :theme,
-  ]
+  defstruct @enforce_keys ++
+              [
+                :css_url,
+                :theme
+              ]
 end

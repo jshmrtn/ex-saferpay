@@ -6,24 +6,25 @@ defmodule ExSaferpay.Response.Transaction do
   alias ExSaferpay.Response
 
   @type type :: :payment
-  @type status :: :authorized |
-    :captured |
-    :pending
+  @type status ::
+          :authorized
+          | :captured
+          | :pending
 
   @type t :: %__MODULE__{
-    type: type,
-    status: status,
-    id: String.t,
-    date: DateTime.t,
-    amount: Response.Amount.t,
-    order_id: nil | String.t,
-    acquirer_name: nil | String.t,
-    acquirer_reference: nil | String.t,
-    six_transaction_reference: String.t,
-    approval_code: nil | String.t,
-    direct_debit: nil | Response.DirectDebit.t,
-    invoice: nil | Response.Invoice.t,
-  }
+          type: type,
+          status: status,
+          id: String.t(),
+          date: DateTime.t(),
+          amount: Response.Amount.t(),
+          order_id: nil | String.t(),
+          acquirer_name: nil | String.t(),
+          acquirer_reference: nil | String.t(),
+          six_transaction_reference: String.t(),
+          approval_code: nil | String.t(),
+          direct_debit: nil | Response.DirectDebit.t(),
+          invoice: nil | Response.Invoice.t()
+        }
 
   defstruct [
     :type,
@@ -37,7 +38,7 @@ defmodule ExSaferpay.Response.Transaction do
     :six_transaction_reference,
     :approval_code,
     :direct_debit,
-    :invoice,
+    :invoice
   ]
 
   def empty do
@@ -47,7 +48,7 @@ defmodule ExSaferpay.Response.Transaction do
       date: DateTime,
       amount: Money,
       direct_debit: Response.DirectDebit.empty(),
-      invoice: Response.Invoice.empty(),
+      invoice: Response.Invoice.empty()
     }
   end
 end

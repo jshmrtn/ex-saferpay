@@ -5,21 +5,23 @@ defmodule ExSaferpay.Request.RegisterAlias do
 
   use ExSaferpay.RequestNormalizer
 
-  @type id_generator :: :manual |
-    :random |
-    :random_unique
+  @type id_generator ::
+          :manual
+          | :random
+          | :random_unique
 
   @type t :: %__MODULE__{
-    id_generator: id_generator,
-    id: nil | String.t,
-    lifetime: 1..1600,
-  }
+          id_generator: id_generator,
+          id: nil | String.t(),
+          lifetime: 1..1600
+        }
 
   @enforce_keys [
-    :id_generator,
+    :id_generator
   ]
-  defstruct @enforce_keys ++ [
-    :id,
-    :lifetime,
-  ]
+  defstruct @enforce_keys ++
+              [
+                :id,
+                :lifetime
+              ]
 end

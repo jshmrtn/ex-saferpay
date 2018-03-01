@@ -4,13 +4,13 @@ defmodule ExSaferpay.Response.CheckResult do
   """
 
   @type t :: %__MODULE__{
-    result: String.t,
-    message: String.t,
-  }
+          result: String.t(),
+          message: String.t()
+        }
 
   defstruct [
     :result,
-    :message,
+    :message
   ]
 
   def empty do

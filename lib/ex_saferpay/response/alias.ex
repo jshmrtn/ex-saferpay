@@ -4,13 +4,13 @@ defmodule ExSaferpay.Response.Alias do
   """
 
   @type t :: %__MODULE__{
-    id: String.t,
-    lifetime: 1..1600,
-  }
+          id: String.t(),
+          lifetime: 1..1600
+        }
 
   defstruct [
     :id,
-    :lifetime,
+    :lifetime
   ]
 
   def empty do

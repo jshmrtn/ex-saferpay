@@ -6,16 +6,17 @@ defmodule ExSaferpay.Request.ReturnUrls do
   use ExSaferpay.RequestNormalizer
 
   @type t :: %__MODULE__{
-    success: URI.t,
-    fail: URI.t,
-    abort: nil | URI.t,
-  }
+          success: URI.t(),
+          fail: URI.t(),
+          abort: nil | URI.t()
+        }
 
   @enforce_keys [
     :success,
-    :fail,
+    :fail
   ]
-  defstruct @enforce_keys ++ [
-    :abort,
-  ]
+  defstruct @enforce_keys ++
+              [
+                :abort
+              ]
 end

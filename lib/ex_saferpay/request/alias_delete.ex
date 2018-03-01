@@ -7,13 +7,13 @@ defmodule ExSaferpay.Request.AliasDelete do
   alias ExSaferpay.Request
 
   @type t :: %__MODULE__{
-    request_header: Request.RequestHeader.t,
-    alias_id: String.t,
-  }
+          request_header: Request.RequestHeader.t(),
+          alias_id: String.t()
+        }
 
   @enforce_keys [
     :request_header,
-    :alias_id,
+    :alias_id
   ]
   defstruct @enforce_keys
 
@@ -21,7 +21,7 @@ defmodule ExSaferpay.Request.AliasDelete do
 
   def generate(attrs) do
     %{
-      request_header: Request.RequestHeader.generate(),
+      request_header: Request.RequestHeader.generate()
     }
     |> Map.merge(attrs)
     |> new

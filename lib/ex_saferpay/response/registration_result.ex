@@ -6,21 +6,21 @@ defmodule ExSaferpay.Response.RegistrationResult do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    success: boolean,
-    alias: nil | Response.Alias.t,
-    error: nil | Response.Error.t,
-  }
+          success: boolean,
+          alias: nil | Response.Alias.t(),
+          error: nil | Response.Error.t()
+        }
 
   defstruct [
     :success,
     :alias,
-    :error,
+    :error
   ]
 
   def empty do
     %__MODULE__{
       alias: Response.Alias.empty(),
-      error: Response.Error.empty(),
+      error: Response.Error.empty()
     }
   end
 end

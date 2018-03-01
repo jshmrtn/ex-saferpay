@@ -4,13 +4,13 @@ defmodule ExSaferpay.Response.DirectDebit do
   """
 
   @type t :: %__MODULE__{
-    mandate_id: String.t,
-    creditor_id: String.t,
-  }
+          mandate_id: String.t(),
+          creditor_id: String.t()
+        }
 
   defstruct [
     :mandate_id,
-    :creditor_id,
+    :creditor_id
   ]
 
   def empty do

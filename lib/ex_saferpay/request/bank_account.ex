@@ -6,18 +6,19 @@ defmodule ExSaferpay.Request.BankAccount do
   use ExSaferpay.RequestNormalizer
 
   @type t :: %__MODULE__{
-    iban: String.t,
-    holder_name: nil | String.t,
-    bic: nil | String.t,
-    bank_name: nil | String.t,
-  }
+          iban: String.t(),
+          holder_name: nil | String.t(),
+          bic: nil | String.t(),
+          bank_name: nil | String.t()
+        }
 
   @enforce_keys [
-    :iban,
+    :iban
   ]
-  defstruct @enforce_keys ++ [
-    :holder_name,
-    :bic,
-    :bank_name,
-  ]
+  defstruct @enforce_keys ++
+              [
+                :holder_name,
+                :bic,
+                :bank_name
+              ]
 end

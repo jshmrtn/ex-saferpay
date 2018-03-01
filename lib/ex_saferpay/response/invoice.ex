@@ -6,21 +6,21 @@ defmodule ExSaferpay.Response.Invoice do
   alias ExSaferpay.Response
 
   @type t :: %__MODULE__{
-    payee: nil | Response.Payee.t,
-    reason_for_transfer: nil | String.t,
-    due_date: nil | DateTime.t,
-  }
+          payee: nil | Response.Payee.t(),
+          reason_for_transfer: nil | String.t(),
+          due_date: nil | DateTime.t()
+        }
 
   defstruct [
     :payee,
     :reason_for_transfer,
-    :due_date,
+    :due_date
   ]
 
   def empty do
     %__MODULE__{
       payee: Response.Payee.empty(),
-      due_date: DateTime,
+      due_date: DateTime
     }
   end
 end

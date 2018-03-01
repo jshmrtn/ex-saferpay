@@ -5,6 +5,7 @@ defmodule ExSaferpay.RequestNormalizer do
     Enum.map(map, fn
       {key, value} when is_binary(key) ->
         {Macro.camelize(key), value}
+
       {key, value} when is_atom(key) ->
         {Macro.camelize(Atom.to_string(key)), value}
     end)
@@ -13,16 +14,20 @@ defmodule ExSaferpay.RequestNormalizer do
   defp normalize_values(map) do
     Enum.map(map, fn
       {key, %Money{amount: amount, currency: currency}} ->
-        amount = amount
-        |> Decimal.mult(Decimal.new(100))
-        |> Decimal.to_integer
+        amount =
+          amount
+          |> Decimal.mult(Decimal.new(100))
+          |> Decimal.to_integer()
 
-        {key, %{
-          Value: amount,
-          CurrencyCode: currency,
-        }}
+        {key,
+         %{
+           Value: amount,
+           CurrencyCode: currency
+         }}
+
       {key, %URI{} = uri} ->
         {key, URI.to_string(uri)}
+
       other ->
         other
     end)
@@ -30,7 +35,7 @@ defmodule ExSaferpay.RequestNormalizer do
 
   def json_encode(map, options) do
     map
-    |> Map.from_struct
+    |> Map.from_struct()
     |> camelize_map
     |> normalize_values
     |> Enum.into(%{})

@@ -8,29 +8,30 @@ defmodule ExSaferpay.Request.TransactionAuthorizeReferenced do
   alias ExSaferpay.Request
 
   @type t :: %__MODULE__{
-      request_header: Request.RequestHeader,
-      terminal_id: String.t,
-      payment: Request.Payment.t,
-      transaction_reference: Request.TransactionReference.t,
-      suppress_dcc: nil | boolean()
-  }
+          request_header: Request.RequestHeader,
+          terminal_id: String.t(),
+          payment: Request.Payment.t(),
+          transaction_reference: Request.TransactionReference.t(),
+          suppress_dcc: nil | boolean()
+        }
 
   @enforce_keys [
     :request_header,
     :terminal_id,
     :payment,
-    :transaction_reference,
+    :transaction_reference
   ]
-  defstruct @enforce_keys ++ [
-    :suppress_dcc,
-  ]
+  defstruct @enforce_keys ++
+              [
+                :suppress_dcc
+              ]
 
   def new(attrs), do: struct!(__MODULE__, attrs)
 
   def generate(attrs) do
     %{
       request_header: Request.RequestHeader.generate(),
-      terminal_id: Application.fetch_env!(:ex_saferpay, :terminal_id),
+      terminal_id: Application.fetch_env!(:ex_saferpay, :terminal_id)
     }
     |> Map.merge(attrs)
     |> new

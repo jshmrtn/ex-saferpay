@@ -4,13 +4,13 @@ defmodule ExSaferpay.Response.Redirect do
   """
 
   @type t :: %__MODULE__{
-    redirect_url: String.t,
-    payment_means_required: boolean,
-  }
+          redirect_url: String.t(),
+          payment_means_required: boolean
+        }
 
   defstruct [
     :redirect_url,
-    :payment_means_required,
+    :payment_means_required
   ]
 
   def empty do

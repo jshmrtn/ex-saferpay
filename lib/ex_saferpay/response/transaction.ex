@@ -16,7 +16,7 @@ defmodule ExSaferpay.Response.Transaction do
           status: status,
           id: String.t(),
           date: DateTime.t(),
-          amount: Response.Amount.t(),
+          amount: Money.t(),
           order_id: nil | String.t(),
           acquirer_name: nil | String.t(),
           acquirer_reference: nil | String.t(),

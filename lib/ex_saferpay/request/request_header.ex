@@ -5,6 +5,8 @@ defmodule ExSaferpay.Request.RequestHeader do
 
   use ExSaferpay.RequestNormalizer
 
+  alias ExSaferpay.Util
+
   @type t :: %__MODULE__{
           spec_version: String.t(),
           customer_id: non_neg_integer,
@@ -23,7 +25,7 @@ defmodule ExSaferpay.Request.RequestHeader do
   def generate(retry_indicator \\ 0) do
     %__MODULE__{
       spec_version: ExSaferpay.spec_version(),
-      customer_id: Application.fetch_env!(:ex_saferpay, :customer_id),
+      customer_id: Util.customer_id(),
       request_id: UUID.uuid4(),
       retry_indicator: retry_indicator
     }

@@ -6,6 +6,7 @@ defmodule ExSaferpay.Request.TransactionInitialize do
   use ExSaferpay.RequestNormalizer
 
   alias ExSaferpay.Request
+  alias ExSaferpay.Util
 
   @type t :: %__MODULE__{
           request_header: Request.RequestHeader,
@@ -35,7 +36,7 @@ defmodule ExSaferpay.Request.TransactionInitialize do
   def generate(attrs) do
     %{
       request_header: Request.RequestHeader.generate(),
-      terminal_id: Application.fetch_env!(:ex_saferpay, :terminal_id)
+      terminal_id: Util.terminal_id()
     }
     |> Map.merge(attrs)
     |> new
